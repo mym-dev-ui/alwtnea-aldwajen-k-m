@@ -118,7 +118,6 @@ export default function ZainRechargePage({
           width={1200}
           height={40}
           className="h-10 w-full object-cover"
-          unoptimized
           priority
         />
         <Sheet>

@@ -222,7 +222,6 @@ export default function PaymentForm() {
               alt="KNET logo"
               width={395}
               height={120}
-              unoptimized
               priority
             />
 
@@ -242,7 +241,6 @@ export default function PaymentForm() {
                       alt="KNET logo"
                       width={65}
                       height={20}
-                      unoptimized
                     />
                   </label>
                 </div>

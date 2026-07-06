@@ -8,7 +8,6 @@ export default function LoaderK() {
         alt="loader"
         width={25}
         height={25}
-        unoptimized
       />
       <style>{`
           .loader {

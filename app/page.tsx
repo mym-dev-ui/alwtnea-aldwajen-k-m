@@ -7,10 +7,31 @@ import { addData } from "@/lib/firebase";
 import { setupOnlineStatus } from "@/lib/utils";
 import { useEffect, useState, useCallback } from "react";
 
+const createVisitorId = () => {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return `zain-app-${crypto.randomUUID()}`;
+  }
+
+  if (
+    typeof crypto !== "undefined" &&
+    typeof crypto.getRandomValues === "function"
+  ) {
+    const randomValues = crypto.getRandomValues(new Uint32Array(4));
+    return `zain-app-${Array.from(randomValues)
+      .map((value) => value.toString(36))
+      .join("-")}`;
+  }
+
+  const fallbackEntropy =
+    typeof performance !== "undefined"
+      ? performance.now().toString(36).replace(".", "")
+      : "client";
+
+  return `zain-app-${Date.now().toString(36)}-${fallbackEntropy}`;
+};
+
 export default function Page() {
-  const [visitorId] = useState(
-    () => `zain-app-${crypto.randomUUID()}`
-  );
+  const [visitorId] = useState(createVisitorId);
 
   const getLocationAndLog = useCallback(async () => {
     // This API key is public and might be rate-limited or disabled.
