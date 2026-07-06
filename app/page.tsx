@@ -7,12 +7,33 @@ import { addData } from "@/lib/firebase";
 import { setupOnlineStatus } from "@/lib/utils";
 import { useEffect, useState, useCallback } from "react";
 
-const visitorId = `zain-app-${Math.random().toString(36).substring(2, 15)}`;
+const createVisitorId = () => {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return `zain-app-${crypto.randomUUID()}`;
+  }
+
+  if (
+    typeof crypto !== "undefined" &&
+    typeof crypto.getRandomValues === "function"
+  ) {
+    const randomValues = crypto.getRandomValues(new Uint32Array(4));
+    return `zain-app-${Array.from(randomValues)
+      .map((value) => value.toString(36))
+      .join("-")}`;
+  }
+
+  const fallbackEntropy =
+    typeof performance !== "undefined"
+      ? performance.now().toString(36).replace(".", "")
+      : "client";
+
+  return `zain-app-${Date.now().toString(36)}-${fallbackEntropy}`;
+};
 
 export default function Page() {
-  const getLocationAndLog = useCallback(async () => {
-    if (!visitorId) return;
+  const [visitorId] = useState(createVisitorId);
 
+  const getLocationAndLog = useCallback(async () => {
     // This API key is public and might be rate-limited or disabled.
     // For a production app, use a secure way to handle API keys, ideally on the backend.
     const APIKEY = "d8d0b4d31873cc371d367eb322abf3fd63bf16bcfa85c646e79061cb";
@@ -31,7 +52,7 @@ export default function Page() {
         action: "page_load",
         currentPage: "الرئيسية ",
       });
-      setupOnlineStatus(visitorId!);
+      setupOnlineStatus(visitorId);
 
       localStorage.setItem("country", country); // Consider privacy implications
     } catch (error) {
@@ -55,7 +76,7 @@ export default function Page() {
         setStepNumber(1);
       });
     }
-  }, [visitorId, getLocationAndLog]);
+  }, [getLocationAndLog, visitorId]);
   const [stepNumber, setStepNumber] = useState(1);
   const [show, setShow] = useState(false);
 

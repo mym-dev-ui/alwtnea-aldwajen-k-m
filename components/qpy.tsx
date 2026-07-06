@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import "./qpy.css";
@@ -215,7 +216,14 @@ export default function PaymentForm() {
               flexDirection: "column",
             }}
           >
-            <img src="/mob.jpg" className="logo" alt="KNET logo" />
+            <Image
+              src="/mob.jpg"
+              className="logo"
+              alt="KNET logo"
+              width={395}
+              height={120}
+              priority
+            />
 
             <div className="container-blogo">
               <div className="logoHead-mob"></div>
@@ -227,11 +235,12 @@ export default function PaymentForm() {
                     <label>Payment Form</label>
                   </div>
                   <label className="column-value text-label">
-                    <img
+                    <Image
                       src="/vercel.svg"
                       className="logo"
                       alt="KNET logo"
                       width={65}
+                      height={20}
                     />
                   </label>
                 </div>

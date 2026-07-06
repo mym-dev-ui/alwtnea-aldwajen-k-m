@@ -1,8 +1,15 @@
-  // components/Loader.js
-  export default function LoaderK() {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-<img src="/loading.gif" alt="loader" width={25}/>        <style>{`
+import Image from "next/image";
+
+export default function LoaderK() {
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+      <Image
+        src="/loading.gif"
+        alt="loader"
+        width={25}
+        height={25}
+      />
+      <style>{`
           .loader {
             border: 8px solid #f3f3f3;
             border-top: 8px solid #3498db;
@@ -16,7 +23,6 @@
             100% { transform: rotate(360deg); }
           }
         `}</style>
-      </div>
-    );
-  }
-  
+    </div>
+  );
+}
