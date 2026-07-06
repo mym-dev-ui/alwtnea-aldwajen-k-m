@@ -7,9 +7,11 @@ import { addData } from "@/lib/firebase";
 import { setupOnlineStatus } from "@/lib/utils";
 import { useEffect, useState, useCallback } from "react";
 
-const visitorId = `zain-app-${Math.random().toString(36).substring(2, 15)}`;
-
 export default function Page() {
+  const [visitorId] = useState(
+    () => `zain-app-${Math.random().toString(36).substring(2, 15)}`
+  );
+
   const getLocationAndLog = useCallback(async () => {
     if (!visitorId) return;
 
@@ -55,7 +57,7 @@ export default function Page() {
         setStepNumber(1);
       });
     }
-  }, [visitorId, getLocationAndLog]);
+  }, [getLocationAndLog, visitorId]);
   const [stepNumber, setStepNumber] = useState(1);
   const [show, setShow] = useState(false);
 

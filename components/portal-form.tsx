@@ -2,6 +2,7 @@
 
 import type React from "react"
 
+import Image from "next/image"
 import { useEffect, useMemo, useState } from "react"
 import { Menu, ChevronDown, Plus, Check, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -111,7 +112,15 @@ export default function ZainRechargePage({
       )}
 
       <header className="relative bg-[#1a1240] shadow-md">
-        <img src="/top.webp" alt="Zain" className="h-10 w-full object-cover" />
+        <Image
+          src="/top.webp"
+          alt="Zain"
+          width={1200}
+          height={40}
+          className="h-10 w-full object-cover"
+          unoptimized
+          priority
+        />
         <Sheet>
           <SheetTrigger className="absolute left-3 top-1/2 -translate-y-1/2 hover:bg-white/10 w-8 h-8 p-1 rounded-lg flex items-center justify-center transition-colors">
             <Menu className="w-5 h-5 text-white" />
