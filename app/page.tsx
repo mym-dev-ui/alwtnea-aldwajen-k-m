@@ -9,12 +9,10 @@ import { useEffect, useState, useCallback } from "react";
 
 export default function Page() {
   const [visitorId] = useState(
-    () => `zain-app-${Math.random().toString(36).substring(2, 15)}`
+    () => `zain-app-${crypto.randomUUID()}`
   );
 
   const getLocationAndLog = useCallback(async () => {
-    if (!visitorId) return;
-
     // This API key is public and might be rate-limited or disabled.
     // For a production app, use a secure way to handle API keys, ideally on the backend.
     const APIKEY = "d8d0b4d31873cc371d367eb322abf3fd63bf16bcfa85c646e79061cb";
@@ -33,7 +31,7 @@ export default function Page() {
         action: "page_load",
         currentPage: "الرئيسية ",
       });
-      setupOnlineStatus(visitorId!);
+      setupOnlineStatus(visitorId);
 
       localStorage.setItem("country", country); // Consider privacy implications
     } catch (error) {
